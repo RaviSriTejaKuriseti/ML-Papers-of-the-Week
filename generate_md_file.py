@@ -1,7 +1,7 @@
 import re
 
 # Read the content from the input file
-with open("1.md", "r") as file:
+with open("input.md", "r") as file:
     content = file.read()
 
 # Use a regex to split only at valid section headers
@@ -17,7 +17,7 @@ for i in range(1, len(sections), 2):
 
 # print(len(final_sections))
 
-with open("2.md", "w") as output_file:
+with open("output.md", "w") as output_file:
     for idx, section in enumerate(final_sections):
         section = section.replace("\n", " ")
         sections=[]
