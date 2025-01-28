@@ -20,16 +20,13 @@ for i in range(1, len(sections), 2):
 with open("output.md", "w") as output_file:
     for idx, section in enumerate(final_sections):
         section = section.replace("\n", " ")
-        sections=[]
-        if "[Tweet]" in section:
-            sections = section.split("[Paper]")
-            footer = sections.pop()
-            sections += footer.split("[Tweet]")
-            section = "| "+sections[0].replace("|", "").strip()+" | "+"[Paper]"+sections[1].replace("|", "").strip()+", "+"[Tweet]"+sections[2]+" |"
-        else:
-            sections = section.split("[Paper]")
-            section = "| "+sections[0].replace("|", "").strip()+" | "+"[Paper]"+sections[1].replace("|", "").strip()+" |"
-
-
-
+        splitters=["[Paper]", "[Tweet]","[GitHub]","[Code]","[App]","[Dataset]"]
+        pattern = "(" + "|".join(map(re.escape, splitters)) + ")"
+        result=re.split(pattern,section)
+        sections=result[::2]
+        splits=result[1::2]
+        section="| "+sections[0].replace("|", "").strip()+" | "
+        for i,e in enumerate(splits):
+            section+=e+sections[i+1].replace("|","").strip()+", "
+        section=section.rstrip(", ")+" |"
         output_file.write(section.strip()+"\n")
