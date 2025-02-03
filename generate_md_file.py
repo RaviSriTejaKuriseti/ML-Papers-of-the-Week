@@ -1,12 +1,14 @@
 import re
 
+SPLITTERS=["[Paper]", "[Tweet]","[GitHub]","[Code]","[App]","[Dataset]","[Models]","[System Card]","[Blog]"]
+
 # Read the content from the input file
 with open("input.md", "r") as file:
-    content = file.read()
+    content = "\n"+file.read()
 
 # Use a regex to split only at valid section headers
 # This ensures we split on patterns like "1) Section text" at the start of a line
-sections = re.split(r'(\n\d+\)\s+)', content)
+sections = re.split(r'(\n\d+\)\s+)', content.replace("\\",""))
 
 # Combine the headers with their corresponding content
 final_sections = []
@@ -20,7 +22,7 @@ for i in range(1, len(sections), 2):
 with open("output.md", "w") as output_file:
     for idx, section in enumerate(final_sections):
         section = section.replace("\n", " ")
-        splitters=["[Paper]", "[Tweet]","[GitHub]","[Code]","[App]","[Dataset]"]
+        splitters=SPLITTERS
         pattern = "(" + "|".join(map(re.escape, splitters)) + ")"
         result=re.split(pattern,section)
         sections=result[::2]
