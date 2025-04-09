@@ -1,6 +1,6 @@
 import re
 
-SPLITTERS=["[Paper]", "[Tweet]","[GitHub]","[Code]","[Code & Data]","[App]","[Dataset]","[Models]","[System Card]","[Blog]","[Demo]","[Technical Report]"]
+SPLITTERS=["[Paper]","[Paper 1]","[Paper 2]", "[Tweet]","[GitHub]","[Code]","[Code & Data]","[App]","[Dataset]","[Models]","[System Card]","[Blog]","[Demo]","[Technical Report]"]
 
 # Read the content from the input file
 with open("input.md", "r") as file:
